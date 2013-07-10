@@ -48,7 +48,7 @@ func (self *GammaRPT) Parse(filePath string) (err error) {
 	file := string(f)
 	self.file = &file
 	self.fReader = str.NewReader(file)
-
+	//体积
 	volStr, err := self.parseElement(file, "Sample Size")
 	if err != nil {
 		return
@@ -57,18 +57,37 @@ func (self *GammaRPT) Parse(filePath string) (err error) {
 	if n != 2 || err != nil {
 		return
 	}
-
+	//标题
 	titleStr, err := self.parseElement(file, "Sample Title")
 	if err != nil {
 		return
 	}
 	self.STitle = titleStr
+	//样品类型
+	self.SType, err = self.parseElement(file, "Sample Type")
+	if err != nil {
+		return
+	}
+	//测量时长
+	liveSec, err := self.parseElement(file, "Live Time")
+	if err != nil {
+		return
+	}
+	n, err = fmt.Sscanf(liveSec, "%d", &self.LiveSeconds)
+	if err != nil {
+		return
+	}
+	if n != 1 {
+		return errors.New("测量时长解析出错")
+	}
 
+	//测量开始时间
 	startTimeStr, err := self.parseElement(file, "Acquisition Started")
 	if err != nil {
 		return
 	}
 	log.Debug("time string is:%v", startTimeStr)
+	//经测试，一位时间也可
 	self.AcqStartTime, err = time.Parse("2006-01-02 15:04:05", startTimeStr)
 	if err != nil {
 		return
