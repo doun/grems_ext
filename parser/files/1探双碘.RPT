@@ -1,0 +1,136 @@
+*************************************************************************
+*****        G A M M A   S P E C T R U M    A N A L Y S I S         *****
+*************************************************************************
+
+
+Filename: 1Ì½Ë«µâ                                                      
+
+Report Generated On             : 2008-2-7   20:31:44   
+
+Sample Title                    : DOUBLE IODINE(1#)                      
+Spectrum Description            :                                 
+Sample Identification           :                 
+Sample Type                     : 9.36            
+Sample Geometry                 : iodine capsule  
+
+Peak Locate Threshold           :  3.00
+Peak Locate Range (in channels) :     1 - 65535
+Peak Area Range (in channels)   :     1 - 65535
+Identification Energy Tolerance :    1.000 keV
+
+Sample Size                     :  4.346E+002 m3      
+
+Sample Taken On                 :                       
+Acquisition Started             : 2008-2-7    9:59:28   
+
+Live Time                       :     5000.0 seconds
+Real Time                       :     5015.9 seconds
+
+Dead Time                       :   0.32 %
+
+
+              Energy Calibration Used Done On       : 2006-7-27 
+              Efficiency Calibration Used Done On   : 2001-11-22
+              Efficiency ID                         :                        
+
+Interference Corrected Activity Report    2008-2-7   20:31:45      Page  2
+
+
+*************************************************************************
+*****   N U C L I D E   I D E N T I F I C A T I O N   R E P O R T   *****
+*************************************************************************
+
+     Sample Title:         DOUBLE IODINE(1#)                       
+     Nuclide Library Used: C:\GENIE2K\CAMFILES\I1al.nlb            
+
+   ....................    IDENTIFIED NUCLIDES     ....................
+
+   Nuclide    Id       Energy    Yield     Activity     Activity
+   Name    Confidence  (keV)      (%)     (Bq /m3  )   Uncertainty
+
+   PB-212    0.987    238.63*    44.60   1.34598E-003  6.43302E-004
+
+       * = Energy line found in the spectrum.
+       @ = Energy line not used for Weighted Mean Activity
+       Energy Tolerance :    1.000 keV
+       Nuclide confidence index threshold =   0.30
+       Errors quoted at  1.000 sigma
+
+Interference Corrected Activity Report    2008-2-7   20:31:45      Page  3
+
+
+*************************************************************************
+*****   I N T E R F E R E N C E   C O R R E C T E D   R E P O R T   *****
+*************************************************************************
+
+
+                 Nuclide       Wt mean         Wt mean
+       Nuclide     Id          Activity        Activity
+       Name     Confidence    (Bq /m3  )      Uncertainty
+
+       PB-212     0.987      1.345978E-003   6.433023E-004
+
+       ? = nuclide is part of an undetermined solution
+       X = nuclide rejected by the interference analysis
+       @ = nuclide contains energy lines not used in Weighted Mean Activity
+
+       Errors quoted at  1.000 sigma
+
+
+   **********   U N I D E N T I F I E D   P E A K S   **********
+
+               Peak Locate Performed on:  2008-2-7   20:31:45   
+               Peak Locate From Channel:     50
+               Peak Locate To Channel:     8192
+
+       Peak   Energy           Peak Size in        Peak CPS
+        No.   (keV)          Counts per Second   % Uncertainty
+
+         1    76.90             1.7938E-002          21.37
+         3   295.57             3.1032E-002          11.01
+         4   352.40             5.6488E-002           7.19
+         5   609.94             3.9600E-002           8.73
+         6  1121.22             1.0520E-002          16.78
+         7  1239.40             3.1818E-003          34.17
+         8  1462.05             2.2612E-002          10.58
+         9  1765.86             9.0000E-003          16.10
+
+       M = First peak in a multiplet region
+       m = Other peak in a multiplet region
+       F = Fitted singlet
+
+       Errors quoted at  1.000 sigma
+Nuclide MDA Report                      2008-2-7   20:31:45        Page  4
+
+
+**************************************************************************
+*****              N U C L I D E   M D A   R E P O R T               *****
+**************************************************************************
+
+     Detector Name:        1Ì½Ë«µâ                         
+     Sample Geometry:      iodine capsule  
+     Sample Title:         DOUBLE IODINE(1#)                       
+     Nuclide Library Used: C:\GENIE2K\CAMFILES\I1al.nlb            
+
+
+      Nuclide   Energy    Yield    Line MDA  Nuclide MDA  Activity   Dec. Level
+      Name      (keV)      (%)    (Bq /m3  ) (Bq /m3  )  (Bq /m3  )  (Bq /m3  )
+
+      MN-54      834.83    99.98  1.440E-003  1.44E-003 -4.002E-004  7.202E-004
+      CO-58      810.76    99.45  1.478E-003  1.48E-003  6.160E-004  7.391E-004
+      CO-60     1173.22    99.90  1.595E-003  1.60E-003 -2.848E-004  7.977E-004
+                1332.49    99.98  1.787E-003             1.394E-003  8.933E-004
+      Br-82      776.49    83.31  1.566E-003  1.57E-003 -2.006E-005  7.831E-004
+      AG-110M    657.75    94.64  1.204E-003  1.20E-003  4.028E-005  6.020E-004
+                 884.67    72.68  1.563E-003            -2.741E-003  7.817E-004
+      I-129       39.57     7.50  8.837E-002  8.84E-002 -3.657E-002  4.418E-002
+      I-131      364.48    81.25  1.050E-003  1.05E-003  4.773E-004  5.250E-004
+      I-133      529.87    87.00  1.230E-003  1.23E-003 -2.385E-004  6.149E-004
+      XE-133      81.00    38.00  2.471E-003  2.47E-003 -2.754E-003  1.235E-003
+      CS-137     661.65    85.21  1.475E-003  1.48E-003 -6.924E-004  7.377E-004
++     PB-212     238.63*   44.60  1.829E-003  1.83E-003  1.346E-003  9.143E-004
+
+       + = Nuclide identified during the nuclide identification
+       * = Energy line found in the spectrum
+       > = MDA value not calculated
+       @ = Half-life too short to be able to perform the decay correction

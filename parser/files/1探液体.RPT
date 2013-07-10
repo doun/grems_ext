@@ -1,0 +1,157 @@
+*************************************************************************
+*****        G A M M A   S P E C T R U M    A N A L Y S I S         *****
+*************************************************************************
+
+
+Filename: 1Ì½ÒºÌå                                                      
+
+Report Generated On             : 2008-2-12  17:45:45   
+
+Sample Title                    : LIQUID                                 
+Spectrum Description            :                                 
+Sample Identification           :                 
+Sample Type                     : ÒºÌå            
+Sample Geometry                 : 1Éý             
+
+Peak Locate Threshold           :  3.00
+Peak Locate Range (in channels) :     1 - 65535
+Peak Area Range (in channels)   :     1 - 65535
+Identification Energy Tolerance :    1.000 keV
+
+Sample Size                     :  1.000E-003 m3      
+
+Sample Taken On                 :                       
+Acquisition Started             : 2008-2-12  12:11:13   
+
+Live Time                       :    20000.0 seconds
+Real Time                       :    20070.4 seconds
+
+Dead Time                       :   0.35 %
+
+
+              Energy Calibration Used Done On       : 2007-7-4  
+              Efficiency Calibration Used Done On   : 2006-7-27 
+              Efficiency ID                         :                        
+
+Interference Corrected Activity Report    2008-2-12  17:45:47      Page  2
+
+
+*************************************************************************
+*****   N U C L I D E   I D E N T I F I C A T I O N   R E P O R T   *****
+*************************************************************************
+
+     Sample Title:         LIQUID                                  
+     Nuclide Library Used: C:\GENIE2K\CAMFILES\liquid1al.NLB       
+
+   ....................    IDENTIFIED NUCLIDES     ....................
+
+   Nuclide    Id       Energy    Yield     Activity     Activity
+   Name    Confidence  (keV)      (%)     (Bq /m3  )   Uncertainty
+
+   CO-58     1.000    810.76*    99.40   1.20984E+003  2.71588E+002
+   CO-60     0.995   1173.22*    99.90   2.03378E+003  3.21214E+002
+                     1332.49*    99.98   2.53628E+003  3.30137E+002
+   AG-110M   0.996    657.75*    94.64   9.01898E+003  7.61061E+002
+   PB-212    1.000    238.63*    44.60   1.88881E+003  3.86598E+002
+
+       * = Energy line found in the spectrum.
+       @ = Energy line not used for Weighted Mean Activity
+       Energy Tolerance :    1.000 keV
+       Nuclide confidence index threshold =   0.30
+       Errors quoted at  1.000 sigma
+
+Interference Corrected Activity Report    2008-2-12  17:45:47      Page  3
+
+
+*************************************************************************
+*****   I N T E R F E R E N C E   C O R R E C T E D   R E P O R T   *****
+*************************************************************************
+
+
+                 Nuclide       Wt mean         Wt mean
+       Nuclide     Id          Activity        Activity
+       Name     Confidence    (Bq /m3  )      Uncertainty
+
+       CO-58      1.000      1.209836E+003   2.715882E+002
+       CO-60      0.995      2.295738E+003   2.569435E+002
+       AG-110M    0.996      9.018985E+003   7.610606E+002
+       PB-212     1.000      1.888808E+003   3.865975E+002
+
+       ? = nuclide is part of an undetermined solution
+       X = nuclide rejected by the interference analysis
+       @ = nuclide contains energy lines not used in Weighted Mean Activity
+
+       Errors quoted at  1.000 sigma
+
+Interference Corrected Activity Report    2008-2-12  17:45:47      Page  4
+
+
+   **********   U N I D E N T I F I E D   P E A K S   **********
+
+               Peak Locate Performed on:  2008-2-12  17:45:45   
+               Peak Locate From Channel:     50
+               Peak Locate To Channel:     8192
+
+       Peak   Energy           Peak Size in        Peak CPS
+        No.   (keV)          Counts per Second   % Uncertainty
+
+         1    25.63             2.2725E-003          32.86
+         2    62.91             7.1773E-003          20.40
+         3    92.32             1.1842E-002          13.47
+         4   185.62             9.0674E-003          17.92
+         6   320.01             4.7483E-003          22.38
+         7   446.82             2.3276E-003          43.51
+         8   511.28             1.8954E-002           7.62
+         9   609.35             2.3620E-003          32.36
+        11   677.69             2.7394E-003          30.49
+        12   687.14             3.5339E-003          22.49
+        13   706.85             5.6009E-003          16.37
+        14   744.35             1.7252E-003          40.92
+        15   763.92             7.9164E-003          14.02
+        17   884.72             2.9417E-002           4.76
+        18   937.65             1.1770E-002           8.34
+        21  1384.42             8.1530E-003           9.25
+        22  1461.11             5.4248E-003          11.97
+        23  1505.07             3.4500E-003          15.84
+        24  1764.83             2.0880E-003          17.28
+
+       M = First peak in a multiplet region
+       m = Other peak in a multiplet region
+       F = Fitted singlet
+
+       Errors quoted at  1.000 sigma
+Nuclide MDA Report                      2008-2-12  17:45:47        Page  5
+
+
+**************************************************************************
+*****              N U C L I D E   M D A   R E P O R T               *****
+**************************************************************************
+
+     Detector Name:        1Ì½ÒºÌå                         
+     Sample Geometry:      1Éý             
+     Sample Title:         LIQUID                                  
+     Nuclide Library Used: C:\GENIE2K\CAMFILES\liquid1al.NLB       
+
+
+      Nuclide   Energy    Yield    Line MDA  Nuclide MDA  Activity   Dec. Level
+      Name      (keV)      (%)    (Bq /m3  ) (Bq /m3  )  (Bq /m3  )  (Bq /m3  )
+
+      MN-54      834.83    99.98  7.659E+002  7.66E+002  4.641E+002  3.829E+002
++     CO-58      810.76*   99.40  6.488E+002  6.49E+002  1.210E+003  3.244E+002
++     CO-60     1173.22*   99.90  5.865E+002  3.98E+002  2.034E+003  2.932E+002
+                1332.49*   99.98  3.979E+002             2.536E+003  1.990E+002
+      RU-106     621.84     9.80  7.625E+003  5.35E+003 -2.959E+003  3.812E+003
+                1050.47    14.52  5.346E+003             1.355E+003  2.673E+003
++     AG-110M    657.75*   94.64  6.472E+002  6.47E+002  9.019E+003  3.236E+002
+      SB-124     722.78    10.76  7.613E+003  1.49E+003  6.152E+002  3.807E+003
+                1691.02    47.33  1.489E+003             1.990E+002  7.446E+002
+      I-131      364.48    81.20  7.939E+002  7.94E+002 -9.230E+001  3.970E+002
+      CS-134     604.70    97.56  8.420E+002  8.20E+002 -8.834E+001  4.210E+002
+                 795.84    85.44  8.204E+002            -7.095E+002  4.102E+002
+      CS-137     661.65    85.21  1.853E+003  1.85E+003 -2.601E+003  9.265E+002
++     PB-212     238.63*   44.60  9.355E+002  9.35E+002  1.889E+003  4.677E+002
+
+       + = Nuclide identified during the nuclide identification
+       * = Energy line found in the spectrum
+       > = MDA value not calculated
+       @ = Half-life too short to be able to perform the decay correction

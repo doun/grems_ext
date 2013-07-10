@@ -1,0 +1,111 @@
+*************************************************************************
+*****        G A M M A   S P E C T R U M    A N A L Y S I S         *****
+*************************************************************************
+
+
+Filename: 1Ì½µ¥µâ                                                      
+
+Report Generated On             : 2008-1-30  21:57:51   
+
+Sample Title                    : SINGLE IODINE(1#)                      
+Spectrum Description            :                                 
+Sample Identification           :                 
+Sample Type                     : GAS             
+Sample Geometry                 : iodine capsule  
+
+Peak Locate Threshold           :  3.00
+Peak Locate Range (in channels) :     1 - 65535
+Peak Area Range (in channels)   :    50 -  8000
+Identification Energy Tolerance :    1.000 keV
+
+Sample Size                     :  1.000E+000 m3      
+
+Sample Taken On                 :                       
+Acquisition Started             : 2008-1-30  21:40:17   
+
+Live Time                       :      900.0 seconds
+Real Time                       :      902.9 seconds
+
+Dead Time                       :   0.32 %
+
+
+              Energy Calibration Used Done On       : 2006-7-27 
+              Efficiency Calibration Used Done On   : 2001-11-22
+              Efficiency ID                         :                        
+
+Interference Corrected Activity Report    2008-1-30  21:57:52      Page  2
+
+
+*************************************************************************
+*****   N U C L I D E   I D E N T I F I C A T I O N   R E P O R T   *****
+*************************************************************************
+
+     Sample Title:         SINGLE IODINE(1#)                       
+     Nuclide Library Used: C:\GENIE2K\CAMFILES\I1al.nlb            
+
+   ....................    IDENTIFIED NUCLIDES     ....................
+
+   Nuclide    Id       Energy    Yield     Activity     Activity
+   Name    Confidence  (keV)      (%)     (Bq /m3  )   Uncertainty
+
+
+       * = Energy line found in the spectrum.
+       @ = Energy line not used for Weighted Mean Activity
+       Energy Tolerance :    1.000 keV
+       Nuclide confidence index threshold =   0.30
+       Errors quoted at  1.000 sigma
+
+Interference Corrected Activity Report    2008-1-30  21:57:52      Page  3
+
+
+*************************************************************************
+*****   I N T E R F E R E N C E   C O R R E C T E D   R E P O R T   *****
+*************************************************************************
+
+
+                 Nuclide       Wt mean         Wt mean
+       Nuclide     Id          Activity        Activity
+       Name     Confidence    (Bq /m3  )      Uncertainty
+
+
+       ? = nuclide is part of an undetermined solution
+       X = nuclide rejected by the interference analysis
+       @ = nuclide contains energy lines not used in Weighted Mean Activity
+
+       Errors quoted at  1.000 sigma
+
+No peak search results available for nuclide analysis.
+Nuclide MDA Report                      2008-1-30  21:57:52        Page  4
+
+
+**************************************************************************
+*****              N U C L I D E   M D A   R E P O R T               *****
+**************************************************************************
+
+     Detector Name:        1Ì½µ¥µâ                         
+     Sample Geometry:      iodine capsule  
+     Sample Title:         SINGLE IODINE(1#)                       
+     Nuclide Library Used: C:\GENIE2K\CAMFILES\I1al.nlb            
+
+
+      Nuclide   Energy    Yield    Line MDA  Nuclide MDA  Activity   Dec. Level
+      Name      (keV)      (%)    (Bq /m3  ) (Bq /m3  )  (Bq /m3  )  (Bq /m3  )
+
+      MN-54      834.83    99.98  1.231E+000  1.23E+000 -5.688E-001  6.157E-001
+      CO-58      810.76    99.45  7.908E-001  7.91E-001 -2.159E-001  3.954E-001
+      CO-60     1173.22    99.90  8.567E-001  8.57E-001 -1.432E-001  4.284E-001
+                1332.49    99.98  1.317E+000            -9.340E-001  6.585E-001
+      Br-82      776.49    83.31  1.390E+000  1.39E+000  2.194E-001  6.950E-001
+      AG-110M    657.75    94.64  6.930E-001  6.93E-001 -3.726E-001  3.465E-001
+                 884.67    72.68  1.645E+000             2.598E-001  8.226E-001
+      I-129       39.57     7.50  8.670E+001  8.67E+001 -1.998E+001  4.335E+001
+      I-131      364.48    81.25  1.038E+000  1.04E+000  4.618E-001  5.192E-001
+      I-133      529.87    87.00  1.019E+000  1.02E+000 -3.329E-001  5.094E-001
+      XE-133      81.00    38.00  1.558E+000  1.56E+000 -3.813E+000  7.788E-001
+      CS-137     661.65    85.21  1.263E+000  1.26E+000  6.961E-002  6.317E-001
+      PB-212     238.63    44.60  1.857E+000  1.86E+000 -1.720E+000  9.285E-001
+
+       + = Nuclide identified during the nuclide identification
+       * = Energy line found in the spectrum
+       > = MDA value not calculated
+       @ = Half-life too short to be able to perform the decay correction
