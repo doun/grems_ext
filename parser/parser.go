@@ -5,6 +5,7 @@ import (
 	"code.google.com/p/log4go"
 	"errors"
 	"fmt"
+	//	mlib "github.com/doun/golib"
 	"io/ioutil"
 	"os"
 	str "strings"
@@ -15,7 +16,7 @@ var log log4go.Logger
 
 func init() {
 	log = make(log4go.Logger)
-	log.AddFilter("stdout", log4go.INFO, log4go.NewFormatLogWriter(os.Stdout, "[%D %T][%L][Conn](%S) %M"))
+	log.AddFilter("stdout", log4go.DEBUG, log4go.NewFormatLogWriter(os.Stdout, "[%D %T][%L][Conn](%S) %M"))
 }
 
 type GammaRPT struct {
@@ -31,7 +32,6 @@ type GammaRPT struct {
 	Nuclides     map[string]NuclideActivity
 	file         *string
 	fReader      *str.Reader
-	bufReader    *bufio.Reader
 }
 
 type NuclideActivity struct {
@@ -40,7 +40,7 @@ type NuclideActivity struct {
 	IsLLD bool
 }
 
-func (self *GammaRPT) Parse(filePath string) error {
+func (self *GammaRPT) Parse(filePath string) (err error) {
 	f, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		panic(err)
@@ -48,33 +48,62 @@ func (self *GammaRPT) Parse(filePath string) error {
 	file := string(f)
 	self.file = &file
 	self.fReader = str.NewReader(file)
-	self.bufReader = bufio.NewReader(self.fReader)
 
-	volStart := str.Index(file, "Sample Size")
-	if volStart < 0 {
-		return errors.New("未找到样品体积")
-	}
-	self.fReader.Seek(int64(volStart), 0)
-	volStr, _, err := self.bufReader.ReadLine()
+	volStr, err := self.parseElement(file, "Sample Size")
 	if err != nil {
-		log.Debug("未读到体积行,已经找到的为:", volStr)
-		panic(err)
+		return
 	}
-	volParts := str.Split(string(volStr), ":")
-	if len(volParts) != 2 {
-		panic("体积解析出错")
+	n, err := fmt.Sscanf(volStr, "%f %s", &self.SVol, &self.SVolUnit)
+	if n != 2 || err != nil {
+		return
 	}
-	volVals := str.Split(str.TrimSpace(volParts[1]), " ")
-	volValStr := volVals[0]
-	volUnit := volVals[1]
 
-	fmt.Sscanf(volValStr, "%f", &self.SVol)
-	fmt.Sscanf(volUnit, "%s", &self.SVolUnit)
-
-	titleStart := str.Index(file, "Sample Title")
-	if titleStart < 0 {
-		return errors.New("未找到样品名称")
+	titleStr, err := self.parseElement(file, "Sample Title")
+	if err != nil {
+		return
 	}
-	self.fReader.Seek(int64(titleStart), 0)
-	return nil
+	self.STitle = titleStr
+
+	startTimeStr, err := self.parseElement(file, "Acquisition Started")
+	if err != nil {
+		return
+	}
+	log.Debug("time string is:%v", startTimeStr)
+	self.AcqStartTime, err = time.Parse("2006-01-02 15:04:05", startTimeStr)
+	if err != nil {
+		return
+	}
+
+	return
+}
+
+func (self *GammaRPT) parseElement(content, prefix string) (ele string, err error) {
+	offset := str.Index(content, prefix)
+	if offset < 0 {
+		err = errors.New("find prefix err:" + prefix)
+		log.Info("找参数%v的起点出错，找到的offset为:%v", prefix, offset)
+		return
+	}
+	n, err := self.fReader.Seek(int64(offset), 0)
+	if err != nil {
+		return
+	}
+	if n < 0 {
+		return
+	}
+
+	reader := bufio.NewReader(self.fReader)
+
+	log.Debug("%v的offset为:%v", prefix, offset)
+	line, _, err := reader.ReadLine()
+	if err != nil {
+		return
+	}
+	parts := str.Split(string(line), " : ")
+	if len(parts) != 2 {
+		err = errors.New("格式错误，应为prefix:content, prefix为:" + prefix + "当前行为:" + string(line))
+		return
+	}
+	ele = str.TrimSpace(parts[1])
+	return
 }

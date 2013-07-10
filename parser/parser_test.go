@@ -20,12 +20,12 @@ func TestSeekString(t *testing.T) {
 
 }
 
-func TestFmtScanf(t *testing.T) {
+/*func TestFmtScanf(t *testing.T) {
 	s := "asdf 123"
 	var s1 string
 	var i1 int32
-	_, e := fmt.Sscanf(s, "%*s %d",&s1, &i1)
-	if e!= nil{
+	_, e := fmt.Sscanf(s, "%*s %d", &s1, &i1)
+	if e != nil {
 		fmt.Println(e)
 		t.Fail()
 	}
@@ -33,12 +33,26 @@ func TestFmtScanf(t *testing.T) {
 		t.Fail()
 	}
 }
-
-func TestCanDecodeVol(t *testing.T) {
+*/
+func TestCanDecode(t *testing.T) {
 	fpath := "./testfiles/1升液体.RPT"
 	parser := new(GammaRPT)
-	parser.Parse(fpath)
-	if parser.SVol != 0.001 {
-		t.Fail()
+	err := parser.Parse(fpath)
+	if err != nil {
+		t.Fatal(err)
 	}
+
+	//vol
+	if parser.SVol != 0.001 {
+		t.Fatal(parser.SVol)
+	}
+	//title
+	if len(parser.STitle) <= 1 {
+		t.Fatal(parser.STitle)
+	}
+	//time
+	if parser.AcqStartTime.Year() != 2008 {
+		t.Fatal(parser.AcqStartTime)
+	}
+
 }
