@@ -72,3 +72,9 @@ func TestSplit(t *testing.T) {
 	)
 	fmt.Sscanf(s, "%s %f %f %f", &s1, &i1, &i2, &i3)
 }
+
+func TestMDALen(t *testing.T){
+	t.Fatal(len("MN-54      834.83    99.97  8.924E+002  8.92E+002 -5.105E+002  4.462E+002"))
+}
+
+

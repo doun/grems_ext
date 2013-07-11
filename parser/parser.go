@@ -4,8 +4,8 @@ import (
 	"bufio"
 	"code.google.com/p/log4go"
 	"errors"
-	"io"
 	"fmt"
+	"io"
 	//	mlib "github.com/doun/golib"
 	"io/ioutil"
 	"os"
@@ -101,7 +101,8 @@ func (self *GammaRPT) Parse(filePath string) (err error) {
 	log.Debug(IdentTableLines)
 	self.parseIdent(IdentTableLines)
 	//MDA表
-	MdaLines, err := self.readTable(file, "", "")
+	MdaLines, err := self.readTable(file, "*****              N U C L I D E   M D A   R E P O R T               *****",
+		"+ = Nuclide identified during the nuclide identification")
 	self.parseMda(MdaLines)
 
 	return
@@ -126,12 +127,12 @@ func (self *GammaRPT) parseIdent(lines string) (err error) {
 			break
 		}
 		var act NuclideActivity
-		var conf,uncert float32
+		var conf, uncert float32
 
-		n,e := fmt.Sscanf(string(lineBt),"%s %f %f %f",&act.Name,&conf,&act.Act,&uncert)
+		n, e := fmt.Sscanf(string(lineBt), "%s %f %f %f", &act.Name, &conf, &act.Act, &uncert)
 
 		if n != 4 || e != nil {
-			if e!=io.EOF{
+			if e != io.EOF {
 				return e
 			}
 			break
@@ -142,6 +143,34 @@ func (self *GammaRPT) parseIdent(lines string) (err error) {
 }
 
 func (self *GammaRPT) parseMda(mda string) (err error) {
+	mdaStart := str.Index(mda, "Level")
+	if mdaStart < 0 {
+		log.Debug(mda)
+		panic(err)
+	}
+	//跳过三行
+	mdaStart += str.Index(mda[mdaStart:], "\n") + 1
+	mdaStart += str.Index(mda[mdaStart:], "\n") + 1
+	mdaStart += str.Index(mda[mdaStart:], "\n") + 1
+	log.Debug(mda[mdaStart:])
+	reader := bufio.NewReader(str.NewReader(mda[mdaStart:]))
+	for {
+		lineBt, _, err := reader.ReadLine()
+		if err != nil {
+			log.Debug(err)
+			break
+		}
+		line := str.TrimSpace(string(lineBt))
+		if len(line) < 5 {
+			break
+		}
+		if len(line) < 50 {
+			continue
+		}
+		if line[0] == '+'{
+			
+		}
+	}
 	return
 }
 
@@ -181,3 +210,13 @@ func (self *GammaRPT) readTable(content, title, tail string) (eleLines string, e
 	end := str.Index(content[start:], tail)
 	return content[start : start+end], nil
 }
+
+func filterEmpty(ori []string) (rst []string) {
+	for _,str := range ori{
+		if len(str)>0{
+			rst = append(rst,str)
+		}
+	}
+	return
+}
+
