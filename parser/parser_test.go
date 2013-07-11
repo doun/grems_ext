@@ -54,5 +54,21 @@ func TestCanDecode(t *testing.T) {
 	if parser.AcqStartTime.Year() != 2008 {
 		t.Fatal(parser.AcqStartTime)
 	}
+	//Ident
+	if len(parser.Nuclides) < 2 {
+		t.Fatal("只解析到:%v个数据", len(parser.Nuclides))
+	}
+	if parser.Nuclides["K-40"].Act!=2.772275e4{
+		t.Fatal(parser.Nuclides)
+	}
 
+}
+
+func TestSplit(t *testing.T) {
+	s := "       K-40       0.952      2.772275E+004   3.473816E+003"
+	var (
+		s1         string
+		i1, i2, i3 float32
+	)
+	fmt.Sscanf(s, "%s %f %f %f", &s1, &i1, &i2, &i3)
 }

@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"code.google.com/p/log4go"
 	"errors"
+	"io"
 	"fmt"
 	//	mlib "github.com/doun/golib"
 	"io/ioutil"
@@ -110,25 +111,32 @@ func (self *GammaRPT) parseIdent(lines string) (err error) {
 	if self.Nuclides == nil {
 		self.Nuclides = make(map[string]NuclideActivity)
 	}
-	actStart := str.Index(lines, "Uncertainty\n\n")
-	reader := bufio.NewReader(str.NewReader(lines[actStart+len("Uncertainty\n\n"):]))
+	actStart := str.Index(lines, "Uncertainty")
+	if actStart < 10 {
+		log.Info("解析超探测限表格出错,为:%v", actStart)
+		return errors.New("未找到Uncertainty出现位置")
+	} else {
+		log.Debug("找到Uncertainty起点为%v,数据为%v", actStart, lines[actStart+len("Uncertainty")+4:])
+	}
+	reader := bufio.NewReader(str.NewReader(lines[actStart+len("Uncertainty")+4:]))
 	for {
 		lineBt, _, err := reader.ReadLine()
 		if err != nil {
-			break
-		}
-		line := string(lineBt)
-		parts := str.Split(line, " ")
-		if len(parts) != 4 {
+			log.Debug(err)
 			break
 		}
 		var act NuclideActivity
-		n,e := fmt.Sscanf(parts[2], "%f", &act.Act)
-		if n!=1 || e!=nil{
-			return errors.New("解析活度出错")
+		var conf,uncert float32
+
+		n,e := fmt.Sscanf(string(lineBt),"%s %f %f %f",&act.Name,&conf,&act.Act,&uncert)
+
+		if n != 4 || e != nil {
+			if e!=io.EOF{
+				return e
+			}
+			break
 		}
-		act.Name = parts[0]
-		self.Nuclides[parts[0]] = act
+		self.Nuclides[act.Name] = act
 	}
 	return
 }
