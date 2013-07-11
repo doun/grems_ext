@@ -17,7 +17,7 @@ var log log4go.Logger
 
 func init() {
 	log = make(log4go.Logger)
-	log.AddFilter("stdout", log4go.DEBUG, log4go.NewFormatLogWriter(os.Stdout, "[%D %T][%L][Conn](%S) %M"))
+	log.AddFilter("stdout", log4go.INFO, log4go.NewFormatLogWriter(os.Stdout, "[%D %T][%L][Conn](%S) %M"))
 }
 
 type GammaRPT struct {
@@ -40,6 +40,15 @@ type NuclideActivity struct {
 	Act   float32
 	IsLLD bool
 }
+func (self *GammaRPT) String() string {
+	var str string
+	for _,e := range self.Nuclides{
+		str += fmt.Sprintf("%s %f %b\r\n",e.Name,e.Act,e.IsLLD)
+	}
+	return str
+}
+
+
 
 func (self *GammaRPT) Parse(filePath string) (err error) {
 	f, err := ioutil.ReadFile(filePath)
@@ -164,7 +173,7 @@ func (self *GammaRPT) parseMda(mda string) (err error) {
 		if len(line) < 5 {
 			break
 		}
-		if len(line) < 50 {
+		if len(line) < 70 {
 			continue
 		}
 		var mdaIndex int

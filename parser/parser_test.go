@@ -16,8 +16,6 @@ func TestSeekString(t *testing.T) {
 	r.Seek(1, 0)
 	buf := bufio.NewReader(r)
 	bb, _, _ := buf.ReadLine()
-	fmt.Println(string(bb))
-
 }
 
 /*func TestFmtScanf(t *testing.T) {
@@ -61,10 +59,12 @@ func TestCanDecode(t *testing.T) {
 	if parser.Nuclides["K-40"].Act!=2.772275e4{
 		t.Fatal(parser.Nuclides)
 	}
-
 	//Mda
-	if parser.Nuclides["MN-54"].IsLLD {
-		t.Fatal(parser.Nuclides["MN-54"])
+	if !parser.Nuclides["MN-54"].IsLLD {
+		t.Fatal(parser)
+	}
+	if !parser.Nuclides["AG-110M"].IsLLD{
+		t.Fatal(parser)
 	}
 	
 
@@ -80,7 +80,6 @@ func TestSplit(t *testing.T) {
 }
 
 func TestMDALen(t *testing.T){
-	t.Fatal(len("MN-54      834.83    99.97  8.924E+002  8.92E+002 -5.105E+002  4.462E+002"))
 }
 
 
