@@ -142,9 +142,6 @@ func (self *GammaRPT) parseIdent(lines string) (err error) {
 }
 
 func (self *GammaRPT) parseMda(mda string) (err error) {
-	if self.Nuclides == nil {
-		self.Nuclides = make(map[string]NuclideActivity)
-	}
 	return
 }
 
