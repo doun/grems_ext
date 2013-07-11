@@ -62,6 +62,12 @@ func TestCanDecode(t *testing.T) {
 		t.Fatal(parser.Nuclides)
 	}
 
+	//Mda
+	if parser.Nuclides["MN-54"].IsLLD {
+		t.Fatal(parser.Nuclides["MN-54"])
+	}
+	
+
 }
 
 func TestSplit(t *testing.T) {

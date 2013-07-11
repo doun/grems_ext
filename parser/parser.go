@@ -30,7 +30,7 @@ type GammaRPT struct {
 	RptGenTime   time.Time
 	EngCalTime   time.Time
 	EffCalTime   time.Time
-	Nuclides     map[string]NuclideActivity
+	Nuclides     map[string]*NuclideActivity
 	file         *string
 	fReader      *str.Reader
 }
@@ -110,7 +110,7 @@ func (self *GammaRPT) Parse(filePath string) (err error) {
 
 func (self *GammaRPT) parseIdent(lines string) (err error) {
 	if self.Nuclides == nil {
-		self.Nuclides = make(map[string]NuclideActivity)
+		self.Nuclides = make(map[string]*NuclideActivity)
 	}
 	actStart := str.Index(lines, "Uncertainty")
 	if actStart < 10 {
@@ -137,7 +137,7 @@ func (self *GammaRPT) parseIdent(lines string) (err error) {
 			}
 			break
 		}
-		self.Nuclides[act.Name] = act
+		self.Nuclides[act.Name] = &act
 	}
 	return
 }
@@ -167,9 +167,25 @@ func (self *GammaRPT) parseMda(mda string) (err error) {
 		if len(line) < 50 {
 			continue
 		}
-		if line[0] == '+'{
-			
+		var mdaIndex int
+		if line[0] == '+' {
+			mdaIndex = 5
+		} else {
+			mdaIndex = 4
 		}
+		parts := filterEmpty(str.Split(line, " "))
+		var act float32
+		fmt.Sscanf(parts[mdaIndex], "%f", &act)
+		name := parts[mdaIndex-4]
+		if val, ok := self.Nuclides[name]; ok {
+			if act > val.Act {
+				val.Act = act
+				val.IsLLD = true
+			}
+		} else {
+			self.Nuclides[name] = &NuclideActivity{name, act, true}
+		}
+
 	}
 	return
 }
@@ -212,11 +228,10 @@ func (self *GammaRPT) readTable(content, title, tail string) (eleLines string, e
 }
 
 func filterEmpty(ori []string) (rst []string) {
-	for _,str := range ori{
-		if len(str)>0{
-			rst = append(rst,str)
+	for _, str := range ori {
+		if len(str) > 0 {
+			rst = append(rst, str)
 		}
 	}
 	return
 }
-
