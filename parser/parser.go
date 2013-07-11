@@ -5,8 +5,6 @@ import (
 	"code.google.com/p/log4go"
 	"errors"
 	"fmt"
-	"io"
-	//	mlib "github.com/doun/golib"
 	"io/ioutil"
 	"os"
 	str "strings"
@@ -40,17 +38,16 @@ type NuclideActivity struct {
 	Act   float32
 	IsLLD bool
 }
+
 func (self *GammaRPT) String() string {
 	var str string
-	for _,e := range self.Nuclides{
-		str += fmt.Sprintf("%s %f %b\r\n",e.Name,e.Act,e.IsLLD)
+	for _, e := range self.Nuclides {
+		str += fmt.Sprintf("%s %f %b\r\n", e.Name, e.Act, e.IsLLD)
 	}
 	return str
 }
 
-
-
-func (self *GammaRPT) Parse(filePath string) (err error) {
+func (self *GammaRPT) ReadFile(filePath string) (err error) {
 	f, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		panic(err)
@@ -103,21 +100,20 @@ func (self *GammaRPT) Parse(filePath string) (err error) {
 	if err != nil {
 		return
 	}
-
 	//Corrected表
 	IdentTableLines, err := self.readTable(file, "I N T E R F E R E N C E   C O R R E C T E D   R E P O R T",
 		"       ? = nuclide is part of an undetermined solution")
 	log.Debug(IdentTableLines)
-	self.parseIdent(IdentTableLines)
+	self.parseActTable(IdentTableLines)
 	//MDA表
 	MdaLines, err := self.readTable(file, "*****              N U C L I D E   M D A   R E P O R T               *****",
 		"+ = Nuclide identified during the nuclide identification")
-	self.parseMda(MdaLines)
+	self.parseMdaTable(MdaLines)
 
 	return
 }
 
-func (self *GammaRPT) parseIdent(lines string) (err error) {
+func (self *GammaRPT) parseActTable(lines string) (err error) {
 	if self.Nuclides == nil {
 		self.Nuclides = make(map[string]*NuclideActivity)
 	}
@@ -135,23 +131,23 @@ func (self *GammaRPT) parseIdent(lines string) (err error) {
 			log.Debug(err)
 			break
 		}
-		var act NuclideActivity
-		var conf, uncert float32
-
-		n, e := fmt.Sscanf(string(lineBt), "%s %f %f %f", &act.Name, &conf, &act.Act, &uncert)
-
-		if n != 4 || e != nil {
-			if e != io.EOF {
-				return e
-			}
+		if len(lineBt) < 40 {
 			break
 		}
+		parts := filterEmpty(str.Split(str.TrimSpace(string(lineBt)), " "))
+		if len(parts) != 4 {
+			log.Error("解析ACT表出错,拆分后应为4份，实际为%v份", len(parts))
+			return errors.New("解析ACT表出错")
+		}
+		var act NuclideActivity
+		act.Name = parts[0]
+		fmt.Sscanf(parts[2], "%f", &act.Act)
 		self.Nuclides[act.Name] = &act
 	}
 	return
 }
 
-func (self *GammaRPT) parseMda(mda string) (err error) {
+func (self *GammaRPT) parseMdaTable(mda string) (err error) {
 	mdaStart := str.Index(mda, "Level")
 	if mdaStart < 0 {
 		log.Debug(mda)

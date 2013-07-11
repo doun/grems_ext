@@ -1,22 +1,9 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"strings"
 	"testing"
 )
-
-func TestSeekString(t *testing.T) {
-	var s string
-	s = `asdf
-	asdf11
-	dd`
-	r := strings.NewReader(s)
-	r.Seek(1, 0)
-	buf := bufio.NewReader(r)
-	bb, _, _ := buf.ReadLine()
-}
 
 /*func TestFmtScanf(t *testing.T) {
 	s := "asdf 123"
@@ -35,7 +22,7 @@ func TestSeekString(t *testing.T) {
 func TestCanDecode(t *testing.T) {
 	fpath := "./testfiles/1升液体.RPT"
 	parser := new(GammaRPT)
-	err := parser.Parse(fpath)
+	err := parser.ReadFile(fpath)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -56,17 +43,16 @@ func TestCanDecode(t *testing.T) {
 	if len(parser.Nuclides) < 2 {
 		t.Fatal("只解析到:%v个数据", len(parser.Nuclides))
 	}
-	if parser.Nuclides["K-40"].Act!=2.772275e4{
+	if parser.Nuclides["K-40"].Act != 2.772275e4 {
 		t.Fatal(parser.Nuclides)
 	}
 	//Mda
 	if !parser.Nuclides["MN-54"].IsLLD {
 		t.Fatal(parser)
 	}
-	if !parser.Nuclides["AG-110M"].IsLLD{
+	if !parser.Nuclides["AG-110M"].IsLLD {
 		t.Fatal(parser)
 	}
-	
 
 }
 
@@ -79,7 +65,5 @@ func TestSplit(t *testing.T) {
 	fmt.Sscanf(s, "%s %f %f %f", &s1, &i1, &i2, &i3)
 }
 
-func TestMDALen(t *testing.T){
+func TestMDALen(t *testing.T) {
 }
-
-
