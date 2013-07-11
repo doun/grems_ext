@@ -49,7 +49,7 @@ func (self *GammaRPT) Parse(filePath string) (err error) {
 	self.file = &file
 	self.fReader = str.NewReader(file)
 	//体积
-	volStr, err := self.parseElement(file, "Sample Size")
+	volStr, err := self.readElement(file, "Sample Size")
 	if err != nil {
 		return
 	}
@@ -58,18 +58,18 @@ func (self *GammaRPT) Parse(filePath string) (err error) {
 		return
 	}
 	//标题
-	titleStr, err := self.parseElement(file, "Sample Title")
+	titleStr, err := self.readElement(file, "Sample Title")
 	if err != nil {
 		return
 	}
 	self.STitle = titleStr
 	//样品类型
-	self.SType, err = self.parseElement(file, "Sample Type")
+	self.SType, err = self.readElement(file, "Sample Type")
 	if err != nil {
 		return
 	}
 	//测量时长
-	liveSec, err := self.parseElement(file, "Live Time")
+	liveSec, err := self.readElement(file, "Live Time")
 	if err != nil {
 		return
 	}
@@ -82,10 +82,11 @@ func (self *GammaRPT) Parse(filePath string) (err error) {
 	}
 
 	//测量开始时间
-	startTimeStr, err := self.parseElement(file, "Acquisition Started")
+	startTimeStr, err := self.readElement(file, "Acquisition Started")
 	if err != nil {
 		return
 	}
+	//能量刻度时间和效率刻度时间暂时不用
 	log.Debug("time string is:%v", startTimeStr)
 	//经测试，一位时间也可
 	self.AcqStartTime, err = time.Parse("2006-01-02 15:04:05", startTimeStr)
@@ -93,10 +94,53 @@ func (self *GammaRPT) Parse(filePath string) (err error) {
 		return
 	}
 
+	//Corrected表
+	IdentTableLines, err := self.readTable(file, "I N T E R F E R E N C E   C O R R E C T E D   R E P O R T",
+		"       ? = nuclide is part of an undetermined solution")
+	log.Debug(IdentTableLines)
+	self.parseIdent(IdentTableLines)
+	//MDA表
+	MdaLines, err := self.readTable(file, "", "")
+	self.parseMda(MdaLines)
+
 	return
 }
 
-func (self *GammaRPT) parseElement(content, prefix string) (ele string, err error) {
+func (self *GammaRPT) parseIdent(lines string) (err error) {
+	if self.Nuclides == nil {
+		self.Nuclides = make(map[string]NuclideActivity)
+	}
+	actStart := str.Index(lines, "Uncertainty\n\n")
+	reader := bufio.NewReader(str.NewReader(lines[actStart+len("Uncertainty\n\n"):]))
+	for {
+		lineBt, _, err := reader.ReadLine()
+		if err != nil {
+			break
+		}
+		line := string(lineBt)
+		parts := str.Split(line, " ")
+		if len(parts) != 4 {
+			break
+		}
+		var act NuclideActivity
+		n,e := fmt.Sscanf(parts[2], "%f", &act.Act)
+		if n!=1 || e!=nil{
+			return errors.New("解析活度出错")
+		}
+		act.Name = parts[0]
+		self.Nuclides[parts[0]] = act
+	}
+	return
+}
+
+func (self *GammaRPT) parseMda(mda string) (err error) {
+	if self.Nuclides == nil {
+		self.Nuclides = make(map[string]NuclideActivity)
+	}
+	return
+}
+
+func (self *GammaRPT) readElement(content, prefix string) (ele string, err error) {
 	offset := str.Index(content, prefix)
 	if offset < 0 {
 		err = errors.New("find prefix err:" + prefix)
@@ -125,4 +169,10 @@ func (self *GammaRPT) parseElement(content, prefix string) (ele string, err erro
 	}
 	ele = str.TrimSpace(parts[1])
 	return
+}
+
+func (self *GammaRPT) readTable(content, title, tail string) (eleLines string, err error) {
+	start := str.Index(content, title)
+	end := str.Index(content[start:], tail)
+	return content[start : start+end], nil
 }
