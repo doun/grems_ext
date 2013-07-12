@@ -1,4 +1,4 @@
-package main
+package parser
 
 import (
 	"bufio"
@@ -42,7 +42,7 @@ type NuclideActivity struct {
 func (self *GammaRPT) String() string {
 	var str string
 	for _, e := range self.Nuclides {
-		str += fmt.Sprintf("%s %f %b\r\n", e.Name, e.Act, e.IsLLD)
+		str += fmt.Sprintf("%s %f %v\r\n", e.Name, e.Act, e.IsLLD)
 	}
 	return str
 }
