@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta http-equiv="Access-Control-Allow-Origin" content="*"/>
+<title>解析Gamma谱数据测试页</title>
+<script src="static/lib/jquery-2.0.3.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="static/angular.js" type="text/javascript" charset="utf-8"></script>
+<script src="static/humantestcontroller.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<div ng-controller='HumantestController'>
+   <div id="fileform_rapper">
+       <div id="welcome">
+           <p>感谢参加解析Gamma谱数据验证，请选择本地Gamma谱文件</p>
+       </div>
+       <form id="fileform" ng-submit="postfile()" >
+           <input type="file"  />
+           <input type="submit" id="submit" value="提交" />
+       </form>
+   </div>
+   <div id="replyform_wrapper" ng-show="ShowReplyForm">
+       <form id="replyform">
+           <input type="text" name="reply" id="reply" ng-model="reply.text" />
+           <input type="submit" name="submit" id="submit" ng-action="postreply" value="提交" />
+       </form>
+   </div>
+   <div id='result' ng-show="ShowResult">
+       <p>
+       {{rpt.Raw}}
+       </p>
+       <div id="Act">
+           {{rpt.Act}}
+       </div>
+       <div id="info">
+           {{rpt.Info}}
+       </div>
+   </div>
+
+</div>
+</body>
+</html>
