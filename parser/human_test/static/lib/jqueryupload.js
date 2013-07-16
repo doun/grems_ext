@@ -15,7 +15,7 @@
 
   var uuid = 0;
 
-  $.fn.uploadimage = function(url, data, callback, type) {
+  $.fn.upload = function(url, data, callback, type) {
     var self = this, inputs, checkbox, checked,
     iframeName = 'jquery_upload' + ++uuid,
     iframe = $('<iframe name="' + iframeName + '" style="position:absolute;top:-9999px" />').appendTo('body'),
@@ -112,6 +112,7 @@
       return contents.XMLDocument || contents;
     }
     data = $(contents).find('body').html();
+    alert(data)
 
     switch (type) {
     case 'xml':
