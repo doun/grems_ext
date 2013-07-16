@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"log"
@@ -23,6 +24,10 @@ func init() {
 	staticHandler = http.FileServer(http.Dir(dir))
 }
 
+type S struct {
+	Name string
+}
+
 func main() {
 
 	http.HandleFunc("/parser", parser)
@@ -40,7 +45,12 @@ func parser(w http.ResponseWriter, r *http.Request) {
 	if e != nil {
 		w.Write([]byte("no..." + e.Error()))
 	} else {
-		w.Write([]byte("ok!" + h.Filename))
+		ss := S{h.Filename}
+		if js, e := json.Marshal(ss); e == nil {
+			w.Write(js)
+		} else {
+			w.Write([]byte("failed:" + e.Error()))
+		}
 	}
 }
 
