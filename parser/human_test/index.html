@@ -15,15 +15,15 @@
         <p>感谢参加解析Gamma谱数据验证，请先选择本地Gamma谱文件</p>
     </div>
     <div id="fileform_rapper">
-        <form id="fileform" ng-submit="postfile()" action="/parser" method="post" enctype="multipart/form-data">
+        <form id="fileform"  action="/parser" method="post" enctype="multipart/form-data">
             <input type="file" id="ff" name="ff"  />
-            <input type="submit" id="submit" value="提交" />
+            <input type="button" ng-click="postfile()" id="submit" value="提交" />
         </form>
     </div>
     <div id="replyform_wrapper" ng-show="ShowReplyForm">
         <form id="replyform">
             <input type="text" name="reply" id="reply" ng-model="reply.text" />
-            <input type="submit" name="submit" id="submit" ng-action="postreply" value="提交" />
+            <input type="button" name="submit" id="submit" ng-action="postreply" value="提交" />
         </form>
     </div>
     <div id='result' ng-show="ShowResult">

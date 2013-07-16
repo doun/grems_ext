@@ -1,12 +1,11 @@
 function HumantestController($scope,$http) {
+    $scope.postfile = function () {
+        $("#fileform").ajaxSubmit(function (data) {
+            alert(data)
+        })
+    }
 }
 
 $(function () {
     $("#fileform").ajaxForm()
-    $("#fileform").on('submit',function () {
-        $(this).ajaxSubmit(function (data) {
-            alert(data)
-        })
-        return false
-    })
 })
