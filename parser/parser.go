@@ -96,7 +96,7 @@ func (self *GammaRPT) ReadFile(filePath string) (err error) {
 	//能量刻度时间和效率刻度时间暂时不用
 	log.Debug("time string is:%v", startTimeStr)
 	//经测试，一位时间也可
-	self.AcqStartTime, err = time.Parse("2006-01-02 15:04:05", startTimeStr)
+	self.AcqStartTime, err = time.Parse("2006-1-2 15:04:05", startTimeStr)
 	if err != nil {
 		return
 	}
