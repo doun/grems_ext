@@ -24,7 +24,7 @@
 <div ng-controller='HumantestController'>
     <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:black;color:white" id="fileform_wrapper">
         <div id="fileform_rapper" class="container">
-            <form id="fileform" class="form-inline" action="/parser" method="post" enctype="multipart/form-data">
+            <form id="fileform" class="form-inline" action="/v1/rpt" method="post" enctype="multipart/form-data">
                 <div  ng-show="!HasResult">感谢参加解析Gamma谱数据验证，请选择本地Gamma谱文件</div>
                 <label for="ff" ng-show="HasResult">再来一次</label>
                 <input type="file" id="ff" name="ff" placeholder="选择文件" />

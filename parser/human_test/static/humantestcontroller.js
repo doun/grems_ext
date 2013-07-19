@@ -3,6 +3,7 @@ function HumantestController($scope,$http) {
     $scope.postfile = function () {
         $("#fileform").ajaxSubmit({
             success:function (data) {
+                alert(data)
                 $scope.$apply(function () {
                     rpt = $.parseJSON(data);
                     if (rpt.error == "true") {
